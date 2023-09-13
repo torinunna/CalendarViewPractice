@@ -21,6 +21,7 @@ class CalendarViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpLayout()
+        setUpNavigationBar()
         setCalendar()
         reloadCalendarView(date: Date())
     }
@@ -46,6 +47,15 @@ extension CalendarViewController: UICalendarSelectionSingleDateDelegate {
 }
 
 private extension CalendarViewController {
+    func setUpNavigationBar() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addBtnPressed))
+    }
+    
+    @objc func addBtnPressed() {
+        let vc = AddEventViewController()
+        self.present(vc, animated: true)
+    }
+    
     func setUpLayout() {
         view.addSubview(calendarView)
         calendarView.snp.makeConstraints {
