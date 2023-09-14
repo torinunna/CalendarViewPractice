@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		86BD01272AB2E8A100F5B8AD /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BD01262AB2E8A100F5B8AD /* Event.swift */; };
 		86D6994A2AB1A05D00F24376 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D699492AB1A05D00F24376 /* AppDelegate.swift */; };
 		86D6994C2AB1A05D00F24376 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D6994B2AB1A05D00F24376 /* SceneDelegate.swift */; };
 		86D6994E2AB1A05D00F24376 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D6994D2AB1A05D00F24376 /* CalendarViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		86BD01262AB2E8A100F5B8AD /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		86D699462AB1A05D00F24376 /* CalendarViewPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalendarViewPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86D699492AB1A05D00F24376 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		86D6994B2AB1A05D00F24376 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				86D6994B2AB1A05D00F24376 /* SceneDelegate.swift */,
 				86D6994D2AB1A05D00F24376 /* CalendarViewController.swift */,
 				86D699602AB1A69C00F24376 /* AddEventViewController.swift */,
+				86BD01262AB2E8A100F5B8AD /* Event.swift */,
 				86D699522AB1A05E00F24376 /* Assets.xcassets */,
 				86D699542AB1A05E00F24376 /* LaunchScreen.storyboard */,
 				86D699572AB1A05E00F24376 /* Info.plist */,
@@ -149,6 +152,7 @@
 				86D699612AB1A69C00F24376 /* AddEventViewController.swift in Sources */,
 				86D6994A2AB1A05D00F24376 /* AppDelegate.swift in Sources */,
 				86D6994C2AB1A05D00F24376 /* SceneDelegate.swift in Sources */,
+				86BD01272AB2E8A100F5B8AD /* Event.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

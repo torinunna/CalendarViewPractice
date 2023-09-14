@@ -9,7 +9,10 @@ import UIKit
 import SnapKit
 
 class AddEventViewController: UIViewController {
-
+    
+    var events: [Event] = []
+    var selectedDate: Date? = Date()
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "일정 추가하기"
@@ -28,8 +31,13 @@ class AddEventViewController: UIViewController {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .inline
+        datePicker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
         return datePicker
     }()
+    
+    @objc private func datePickerValueChanged(_ datePicker: UIDatePicker) {
+        selectedDate = datePicker.date
+    }
     
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
@@ -47,7 +55,7 @@ class AddEventViewController: UIViewController {
     
     private lazy var eventDescription: UITextView = {
         let textView = UITextView()
-        textView.font = .systemFont(ofSize: 15.0, weight: .semibold)
+        textView.font = .systemFont(ofSize: 15.0)
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.tertiaryLabel.cgColor
         textView.layer.cornerRadius = 10
@@ -65,7 +73,11 @@ class AddEventViewController: UIViewController {
     }()
     
     @objc func saveBtnPressed() {
+        guard let date = selectedDate, let title = eventTitle.text, let description = eventDescription.text else { return }
+        let newEvent = Event(date: date, title: title, description: description)
+        events.append(newEvent)
         dismiss(animated: true)
+        print(newEvent)
     }
     
     override func viewDidLoad() {
