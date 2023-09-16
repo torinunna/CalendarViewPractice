@@ -11,11 +11,10 @@ import SnapKit
 final class EventCell: UITableViewCell {
     static let identifier = "EventCell"
     
-    lazy var profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = .tertiaryLabel
-        
-        return imageView
+    lazy var profileIconView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = .tertiaryLabel
+        return view
     }()
     
     lazy var titleLabel: UILabel = {
@@ -24,17 +23,18 @@ final class EventCell: UITableViewCell {
     }()
     
     func setUp() {
-        [profileImageView, titleLabel].forEach { addSubview($0) }
+        [profileIconView, titleLabel].forEach { addSubview($0) }
         
-        profileImageView.snp.makeConstraints {
+        profileIconView.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(15)
             $0.centerY.equalToSuperview()
             $0.width.height.equalTo(30)
         }
         
         titleLabel.snp.makeConstraints {
-            $0.leading.equalTo(profileImageView.snp.trailing).offset(15)
             $0.centerY.equalToSuperview()
+            $0.leading.equalTo(profileIconView.snp.trailing).offset(15)
+            $0.trailing.equalToSuperview().inset(15)
         }
     }
 }

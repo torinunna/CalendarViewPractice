@@ -71,7 +71,7 @@ extension CalendarViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EventCell.identifier, for: indexPath) as? EventCell else { return UITableViewCell() }
         let event = filteredEvents[indexPath.row]
-        cell.textLabel?.text = event.title
+        cell.titleLabel.text = event.title
         cell.setUp()
         return cell
     }
