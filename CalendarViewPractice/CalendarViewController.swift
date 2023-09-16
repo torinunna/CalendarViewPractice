@@ -9,7 +9,8 @@ import UIKit
 import SnapKit
 
 class CalendarViewController: UIViewController {
-    var selectedDate: DateComponents? = nil
+    private lazy var selectedDate: DateComponents? = nil
+    private lazy var filteredEvents: [Event] = []
     
     private lazy var calendarView: UICalendarView = {
         var view = UICalendarView()
@@ -35,15 +36,22 @@ class CalendarViewController: UIViewController {
         reloadCalendarView(date: Date())
     }
     
-    fileprivate func setCalendar() {
+    private func setCalendar() {
         let dateSelection = UICalendarSelectionSingleDate(delegate: self)
         calendarView.selectionBehavior = dateSelection
     }
     
-    func reloadCalendarView(date: Date?) {
-        if date == nil { return }
-        let calendar = Calendar.current
-        calendarView.reloadDecorations(forDateComponents: [calendar.dateComponents([.day, .month, .year], from: date!)], animated: true)
+    private func reloadCalendarView(date: Date?) {
+        if let date = date {
+            let selectedDateComponents = calendar.dateComponents([.year, .month, .day], from: date)
+            filteredEvents = events.filter { $0.dateComponents == selectedDateComponents }
+        } else {
+            filteredEvents = []
+        }
+        
+        tableView.reloadData()
+        
+        calendarView.reloadDecorations(forDateComponents: [calendar.dateComponents([.year, .month, .day], from: date!)], animated: true)
     }
 }
 
@@ -51,17 +59,19 @@ extension CalendarViewController: UICalendarSelectionSingleDateDelegate {
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
         selection.setSelected(dateComponents, animated: true)
         selectedDate = dateComponents
-        reloadCalendarView(date: Calendar.current.date(from: dateComponents!))
+        reloadCalendarView(date: calendar.date(from: dateComponents!))
     }
 }
 
 extension CalendarViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return filteredEvents.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EventCell.identifier, for: indexPath) as? EventCell else { return UITableViewCell() }
+        let event = filteredEvents[indexPath.row]
+        cell.textLabel?.text = event.title
         cell.setUp()
         return cell
     }

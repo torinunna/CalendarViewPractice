@@ -9,9 +9,7 @@ import UIKit
 import SnapKit
 
 class AddEventViewController: UIViewController {
-    
-    var events: [Event] = []
-    var selectedDate: Date? = Date()
+    private var selectedDate: Date? = Date()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
