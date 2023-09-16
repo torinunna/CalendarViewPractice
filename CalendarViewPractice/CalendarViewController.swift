@@ -9,14 +9,23 @@ import UIKit
 import SnapKit
 
 class CalendarViewController: UIViewController {
-    lazy var calendarView: UICalendarView = {
+    var selectedDate: DateComponents? = nil
+    
+    private lazy var calendarView: UICalendarView = {
         var view = UICalendarView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.wantsDateDecorations = true
         return view
     }()
     
-    var selectedDate: DateComponents? = nil
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.layer.borderWidth = 1
+        tableView.layer.cornerRadius = 10
+        tableView.dataSource = self
+        tableView.register(EventCell.self, forCellReuseIdentifier: EventCell.identifier)
+        return tableView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +55,18 @@ extension CalendarViewController: UICalendarSelectionSingleDateDelegate {
     }
 }
 
+extension CalendarViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: EventCell.identifier, for: indexPath) as? EventCell else { return UITableViewCell() }
+        cell.setUp()
+        return cell
+    }
+}
+
 private extension CalendarViewController {
     func setUpNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addBtnPressed))
@@ -57,9 +78,16 @@ private extension CalendarViewController {
     }
     
     func setUpLayout() {
-        view.addSubview(calendarView)
+        [calendarView, tableView].forEach { view.addSubview($0) }
+        
         calendarView.snp.makeConstraints {
             $0.leading.trailing.top.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(calendarView.snp.bottom).offset(25)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview().inset(25)
         }
     }
 }
